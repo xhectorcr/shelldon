@@ -1,0 +1,23 @@
+<div id="page-projects" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Workspaces</h1>
+            <p>Selecciona un proyecto y lanza tu entorno al instante</p>
+          </div>
+          <div class="header-actions">
+            <div class="search-wrap">
+              <input id="search-input" type="text" placeholder="Buscar…" oninput="filterProjects()" />
+            </div>
+            <button class="btn-primary" onclick="navigate('new')">➕ Nuevo</button>
+          </div>
+        </div>
+        <div class="scroll">
+          <div id="projects-grid"></div>
+          <div id="empty-state">
+            <div class="empty-icon">⚡</div>
+            <h2>Sin workspaces aún</h2>
+            <p>Crea tu primer proyecto para comenzar</p>
+            <button class="btn-primary" onclick="navigate('new')" style="margin-top:8px">Crear proyecto</button>
+          </div>
+        </div>
+      </div>

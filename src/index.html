@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShellDon</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+
+<body>
+
+  <!-- Titlebar -->
+  <div id="titlebar">
+    <div class="title-left">
+      <span class="logo">⚡</span>
+      <span>ShellDon</span>
+      <span class="ver">v0.1</span>
+    </div>
+    <div class="win-btns">
+      <button class="win-btn" onclick="appWindow.minimize()" title="Minimizar">─</button>
+      <button class="win-btn" onclick="appWindow.toggleMaximize()" title="Maximizar">□</button>
+      <button class="win-btn close" onclick="appWindow.close()" title="Cerrar">✕</button>
+    </div>
+  </div>
+
+  <!-- Layout -->
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside>
+      <button id="nav-projects" class="nav-btn active-nav" onclick="navigate('projects')" title="Proyectos">📋</button>
+      <button id="nav-new" class="nav-btn" onclick="navigate('new')" title="Nuevo proyecto">➕</button>
+      <button id="nav-settings" class="nav-btn" onclick="navigate('settings')" title="Configuración">⚙️</button>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-avatar" title="ShellDon">S</div>
+    </aside>
+
+    <!-- Main -->
+    <main>
+
+      <!-- PAGE: Projects -->
+      <div class="page-container" data-src="pages/projects.html"></div>
+
+      <!-- PAGE: New/Edit -->
+      <div class="page-container" data-src="pages/new.html"></div>
+
+      <!-- PAGE: Settings -->
+      <div class="page-container" data-src="pages/settings.html"></div>
+
+    </main>
+  </div>
+
+  <!-- Launch Modal -->
+  <div class="component-container" data-src="components/modal.html"></div>
+
+  <!-- Toast -->
+  <div class="component-container" data-src="components/toast.html"></div>
+
+  
+  <script>
+    async function loadPartials() {
+      const els = document.querySelectorAll('[data-src]');
+      for (const el of els) {
+        const res = await fetch(el.getAttribute('data-src'));
+        el.outerHTML = await res.text();
+      }
+    }
+    loadPartials().then(() => {
+        // Dispatch an event so main.js knows when DOM is fully loaded with partials
+        document.dispatchEvent(new Event('partialsLoaded'));
+    });
+  </script>
+  <script src="api.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+
+</html>

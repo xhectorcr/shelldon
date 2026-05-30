@@ -1,0 +1,112 @@
+<div id="page-new" class="page">
+        <div class="page-header">
+          <div style="display:flex;align-items:center">
+            <button class="back-btn" onclick="navigate('projects')">← Volver</button>
+            <div>
+              <h1 id="form-title">Nuevo Proyecto</h1>
+              <p>Configura tu entorno de desarrollo</p>
+            </div>
+          </div>
+        </div>
+        <div class="scroll">
+          <form onsubmit="saveProject(event)">
+            <!-- Info básica -->
+            <div class="form-section">
+              <div class="section-title">ℹ️ Información básica</div>
+              <div class="form-grid">
+                <div class="field-group span2">
+                  <label>Nombre del proyecto *</label>
+                  <input id="field-name" class="form-input" type="text" required
+                    placeholder="ej. ERP, Portfolio, API" />
+                </div>
+                <div class="field-group span2">
+                  <label>Descripción</label>
+                  <input id="field-description" class="form-input" type="text"
+                    placeholder="Descripción breve (opcional)" />
+                </div>
+                <div class="field-group span2">
+                  <label>Color</label>
+                  <div class="color-row">
+                    <input id="field-color" type="color" value="#7c3aed" />
+                    <span id="color-hex">#7c3aed</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Terminal -->
+            <div class="form-section">
+              <div class="section-title">⌨️ Terminal</div>
+              <div class="field-group">
+                <label>Adaptador de terminal</label>
+                <select id="field-terminal" class="form-input">
+                  <optgroup label="Windows">
+                    <option value="windows-terminal">Windows Terminal (recomendado)</option>
+                    <option value="powershell">PowerShell</option>
+                    <option value="cmd">CMD</option>
+                  </optgroup>
+                  <optgroup label="Linux">
+                    <option value="tmux">tmux</option>
+                    <option value="terminator">Terminator</option>
+                  </optgroup>
+                  <optgroup label="macOS">
+                    <option value="iterm2">iTerm2</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <!-- Panes -->
+            <div class="form-section">
+              <div class="section-title" style="justify-content:space-between">
+                <span>🪟 Panes</span>
+                <div style="display:flex;flex-direction:column;gap:8px;width:100%;margin-top:10px">
+                  <label style="font-size:11px">Plantilla de diseño:</label>
+                  <div class="layout-selector templates" id="form-layout-selector" style="grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));">
+                    <div class="layout-option" onclick="setFormLayout('cols-2')" id="form-layout-cols-2">
+                      <div class="tpl-icon tpl-cols small"><div class="tpl-p"></div><div class="tpl-p"></div></div>
+                      <span>2 Colum.</span>
+                    </div>
+                    <div class="layout-option" onclick="setFormLayout('cols-3')" id="form-layout-cols-3">
+                      <div class="tpl-icon tpl-cols small"><div class="tpl-p"></div><div class="tpl-p"></div><div class="tpl-p"></div></div>
+                      <span>3 Colum.</span>
+                    </div>
+                    <div class="layout-option" onclick="setFormLayout('grid-2x2')" id="form-layout-grid-2x2">
+                      <div class="tpl-icon tpl-grid small"><div class="tpl-p"></div><div class="tpl-p"></div><div class="tpl-p"></div><div class="tpl-p"></div></div>
+                      <span>Cuadrícula</span>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+              <div id="panes-list"></div>
+              <p id="panes-hint">Agrega al menos un pane para definir qué corre en tu terminal.</p>
+              <button type="button" class="add-pane-btn" onclick="addPane()">+ Agregar pane</button>
+            </div>
+
+            <!-- Extras -->
+            <div class="form-section">
+              <div class="section-title">🔌 Extras <span
+                  style="color:var(--muted);font-weight:400;text-transform:none;font-size:11px">(opcional)</span></div>
+              <div class="extras-grid" style="margin-bottom:12px">
+                <label class="extra-label">
+                  <input type="checkbox" class="extra-cb" value="vscode" /> 💻 VSCode
+                </label>
+                <label class="extra-label">
+                  <input type="checkbox" class="extra-cb" value="docker" /> 🐳 Docker Desktop
+                </label>
+              </div>
+              <div class="field-group">
+                <label>URL del navegador (opcional)</label>
+                <input id="field-browser-url" class="form-input" type="url" placeholder="https://localhost:3000" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" onclick="navigate('projects')">Cancelar</button>
+              <button type="submit" class="btn-primary">💾 Guardar proyecto</button>
+            </div>
+          </form>
+        </div>
+      </div>

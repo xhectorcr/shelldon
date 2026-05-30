@@ -1,0 +1,57 @@
+<div id="page-settings" class="page">
+        <div class="page-header">
+          <div style="display:flex;align-items:center">
+            <button class="back-btn" onclick="navigate('projects')">← Volver</button>
+            <div>
+              <h1>Configuración</h1>
+              <p>Preferencias de la aplicación</p>
+            </div>
+          </div>
+        </div>
+        <div class="scroll">
+          <div class="settings-section">
+            <h3>Terminal por defecto</h3>
+            <select id="setting-terminal" class="form-input"
+              onchange="localStorage.setItem('shelldon:terminal',this.value)">
+              <option value="windows-terminal">Windows Terminal</option>
+              <option value="powershell">PowerShell</option>
+              <option value="cmd">CMD</option>
+              <option value="tmux">tmux</option>
+              <option value="iterm2">iTerm2</option>
+            </select>
+            <p>Usado por defecto para nuevos proyectos.</p>
+          </div>
+          <div class="settings-section">
+            <h3>Plantillas de Diseño (Emulator)</h3>
+            <div class="layout-selector templates">
+              <div class="layout-option" onclick="setLayout('cols-2')" id="layout-cols-2">
+                <div class="tpl-icon tpl-cols"><div class="tpl-p"></div><div class="tpl-p"></div></div>
+                <span>2 Colum.</span>
+              </div>
+              <div class="layout-option" onclick="setLayout('cols-3')" id="layout-cols-3">
+                <div class="tpl-icon tpl-cols"><div class="tpl-p"></div><div class="tpl-p"></div><div class="tpl-p"></div></div>
+                <span>3 Colum.</span>
+              </div>
+              <div class="layout-option" onclick="setLayout('grid-2x2')" id="layout-grid-2x2">
+                <div class="tpl-icon tpl-grid"><div class="tpl-p"></div><div class="tpl-p"></div><div class="tpl-p"></div><div class="tpl-p"></div></div>
+                <span>Cuadrícula</span>
+              </div>
+
+            </div>
+            <p style="margin-top:12px">Elige la plantilla que mejor se adapte a tu flujo de trabajo.</p>
+          </div>
+          <div class="settings-section">
+            <h3>Directorio de datos</h3>
+            <p>Los proyectos se guardan como JSON en:</p>
+            <code>%APPDATA%\shelldon\projects\</code>
+            <p>Puedes editar o importar JSON directamente desde ese directorio.</p>
+          </div>
+          <div class="settings-section">
+            <h3>CLI — Uso desde terminal</h3>
+            <code>shelldon up erp</code>
+            <code>shelldon list</code>
+            <code>shelldon add ./proyecto.json</code>
+            <code>shelldon remove erp</code>
+          </div>
+        </div>
+      </div>

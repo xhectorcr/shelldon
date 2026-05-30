@@ -1,0 +1,1 @@
+export const state = { projects: [], editing: null, panes: [], pendingLaunch: null, formLayout: 'cols-2' };
