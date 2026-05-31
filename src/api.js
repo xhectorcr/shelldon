@@ -7,14 +7,14 @@ async function invoke(cmd, args = {}) {
 
 const _db = {
   projects: [
-    { name: 'ERP', description: 'Laravel + Vue full-stack', terminal: 'windows-terminal', color: '#7c3aed', icon: '🏢',
+    { name: 'ERP', description: 'Laravel + Vue full-stack', terminal: 'auto', color: '#7c3aed', icon: '🏢',
       panes: [{ name: 'Frontend', path: 'C:/Projects/erp/frontend', command: 'npm run dev' }, { name: 'Backend', path: 'C:/Projects/erp/backend', command: 'php artisan serve' }], extras: [] },
-    { name: 'Portfolio', description: 'Nuxt 3 — sitio personal', terminal: 'windows-terminal', color: '#0891b2', icon: '🌐',
-      panes: [{ name: 'Dev Server', path: 'C:/Projects/portfolio', command: 'npm run dev' }], extras: ['vscode'] },
-    { name: 'Vision-AI', description: 'YOLOv8 + FastAPI + Flutter', terminal: 'windows-terminal', color: '#059669', icon: '👁️',
+    { name: 'Portfolio', description: 'Nuxt 3 — sitio personal', terminal: 'auto', color: '#0891b2', icon: '🌐',
+      panes: [{ name: 'Dev Server', path: 'C:/Projects/portfolio', command: 'npm run dev' }], extras: [] },
+    { name: 'Vision-AI', description: 'YOLOv8 + FastAPI + Flutter', terminal: 'auto', color: '#059669', icon: '👁️',
       panes: [{ name: 'API', path: 'C:/Projects/vision/api', command: 'uvicorn main:app --reload' }, { name: 'App', path: 'C:/Projects/vision/app', command: 'flutter run' }], extras: [] },
-    { name: 'Listo-App', description: 'E-commerce con detección YOLO', terminal: 'windows-terminal', color: '#dc2626', icon: '🛒',
-      panes: [{ name: 'Backend', path: 'C:/Projects/listo/api', command: 'python manage.py runserver' }, { name: 'Frontend', path: 'C:/Projects/listo/web', command: 'npm run dev' }, { name: 'YOLO', path: 'C:/Projects/listo/vision', command: 'python yolo_server.py' }], extras: ['vscode'] },
+    { name: 'Listo-App', description: 'E-commerce con detección YOLO', terminal: 'auto', color: '#dc2626', icon: '🛒',
+      panes: [{ name: 'Backend', path: 'C:/Projects/listo/api', command: 'python manage.py runserver' }, { name: 'Frontend', path: 'C:/Projects/listo/web', command: 'npm run dev' }, { name: 'YOLO', path: 'C:/Projects/listo/vision', command: 'python yolo_server.py' }], extras: [] },
   ]
 };
 

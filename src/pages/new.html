@@ -40,17 +40,18 @@
               <div class="field-group">
                 <label>Adaptador de terminal</label>
                 <select id="field-terminal" class="form-input">
+                  <option value="auto">Automático (Recomendado)</option>
                   <optgroup label="Windows">
-                    <option value="windows-terminal">Windows Terminal (recomendado)</option>
-                    <option value="powershell">PowerShell</option>
-                    <option value="cmd">CMD</option>
+                    <option value="windows-terminal">Windows Terminal (Principal)</option>
+                    <option value="powershell">PowerShell (Fallback)</option>
                   </optgroup>
                   <optgroup label="Linux">
-                    <option value="tmux">tmux</option>
-                    <option value="terminator">Terminator</option>
+                    <option value="tmux">tmux (Principal)</option>
+                    <option value="gnome-terminal">GNOME Terminal (Fallback)</option>
                   </optgroup>
                   <optgroup label="macOS">
-                    <option value="iterm2">iTerm2</option>
+                    <option value="iterm2">iTerm2 (Principal)</option>
+                    <option value="terminal-app">Terminal.app (Fallback)</option>
                   </optgroup>
                 </select>
               </div>
@@ -89,14 +90,6 @@
             <div class="form-section">
               <div class="section-title">🔌 Extras <span
                   style="color:var(--muted);font-weight:400;text-transform:none;font-size:11px">(opcional)</span></div>
-              <div class="extras-grid" style="margin-bottom:12px">
-                <label class="extra-label">
-                  <input type="checkbox" class="extra-cb" value="vscode" /> 💻 VSCode
-                </label>
-                <label class="extra-label">
-                  <input type="checkbox" class="extra-cb" value="docker" /> 🐳 Docker Desktop
-                </label>
-              </div>
               <div class="field-group">
                 <label>URL del navegador (opcional)</label>
                 <input id="field-browser-url" class="form-input" type="url" placeholder="https://localhost:3000" />
