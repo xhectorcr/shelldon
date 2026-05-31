@@ -22,5 +22,8 @@ dirs        = "5.0"
 thiserror   = "1.0"
 anyhow      = "1.0"
 
+[target.'cfg(windows)'.dependencies]
+winreg      = "0.52"
+
 [features]
 custom-protocol = ["tauri/custom-protocol"]

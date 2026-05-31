@@ -1,5 +1,7 @@
 use crate::config::Project;
 use crate::terminal::utils::{launch_extra, resolve};
+#[cfg(target_os = "windows")]
+use crate::terminal::utils::{apply_full_path, build_ps_encoded_command};
 use anyhow::{bail, Result};
 use std::process::Command;
 
@@ -36,12 +38,24 @@ pub fn launch_wt(project: &Project) -> Result<()> {
         v.push("--".into());
         
         // Detección de Shell Inteligente
-        if cmd.to_lowercase().contains("pwsh") {
-            v.extend(["pwsh.exe".into(), "-NoExit".into(), "-Command".into(), cmd.into()]);
-        } else if cmd.to_lowercase().contains("bash") {
+        if cmd.to_lowercase().contains("bash") {
+            // Bash: no necesita PATH fix de PowerShell
             v.extend(["bash.exe".into(), "-c".into(), format!("{}; exec bash", cmd)]);
         } else {
-            v.extend(["powershell.exe".into(), "-NoExit".into(), "-Command".into(), cmd.into()]);
+            // PowerShell/pwsh: usar -EncodedCommand para evitar que wt.exe
+            // interprete ';' como separador de subcomandos. El script
+            // codificado reconstruye el PATH del registro y carga $PROFILE.
+            let shell = if cmd.to_lowercase().contains("pwsh") {
+                "pwsh.exe"
+            } else {
+                "powershell.exe"
+            };
+            #[cfg(target_os = "windows")]
+            let encoded = build_ps_encoded_command(cmd);
+            #[cfg(target_os = "windows")]
+            v.extend([shell.into(), "-NoExit".into(), "-EncodedCommand".into(), encoded]);
+            #[cfg(not(target_os = "windows"))]
+            v.extend([shell.into(), "-NoExit".into(), "-Command".into(), cmd.into()]);
         }
         v
     };
@@ -90,6 +104,11 @@ pub fn launch_wt(project: &Project) -> Result<()> {
 
     let mut cmd = Command::new("wt.exe");
     cmd.args(&args);
+
+    // Apply full PATH from registry so wt.exe (and its children)
+    // see all system + user tools even when launched from Explorer.
+    #[cfg(target_os = "windows")]
+    apply_full_path(&mut cmd);
 
     #[cfg(target_os = "windows")]
     {
