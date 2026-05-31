@@ -47,50 +47,30 @@ pub fn launch_wt(project: &Project) -> Result<()> {
     };
 
     if project.layout == "grid-2x2" {
-        if project.panes.len() < 4 {
-            bail!("El layout grid-2x2 requiere al menos 4 panes.");
-        }
-
         args.extend(wt_pane_args(&project.panes[0], false, "", None));
 
-        args.extend(wt_pane_args(
-            &project.panes[1],
-            true,
-            "-V",
-            None,
-        ));
+        if project.panes.len() > 1 {
+            args.extend(wt_pane_args(&project.panes[1], true, "-V", None));
+        }
 
-        args.push(";".into());
-        args.push("focus-pane".into());
-        args.push("-t".into());
-        args.push("0".into());
+        if project.panes.len() > 2 {
+            args.push(";".into());
+            args.push("focus-pane".into());
+            args.push("-t".into());
+            args.push("0".into());
+            args.extend(wt_pane_args(&project.panes[2], true, "-H", None));
+        }
 
-        args.extend(wt_pane_args(
-            &project.panes[2],
-            true,
-            "-H",
-            None,
-        ));
-
-        args.push(";".into());
-        args.push("focus-pane".into());
-        args.push("-t".into());
-        args.push("1".into());
-
-        args.extend(wt_pane_args(
-            &project.panes[3],
-            true,
-            "-H",
-            None,
-        ));
+        if project.panes.len() > 3 {
+            args.push(";".into());
+            args.push("focus-pane".into());
+            args.push("-t".into());
+            args.push("1".into());
+            args.extend(wt_pane_args(&project.panes[3], true, "-H", None));
+        }
 
         for pane in project.panes.iter().skip(4) {
-            args.extend(wt_pane_args(
-                pane,
-                true,
-                "-V",
-                None,
-            ));
+            args.extend(wt_pane_args(pane, true, "-V", None));
         }
     } else {
         // Layout lineal (columnas por defecto)
@@ -105,7 +85,19 @@ pub fn launch_wt(project: &Project) -> Result<()> {
 
     for extra in &project.extras { launch_extra(extra)?; }
 
-    Command::new("wt.exe").args(&args).spawn().map_err(|e| {
+    #[cfg(target_os = "windows")]
+    use std::os::windows::process::CommandExt;
+
+    let mut cmd = Command::new("wt.exe");
+    cmd.args(&args);
+
+    #[cfg(target_os = "windows")]
+    {
+        const CREATE_NO_WINDOW: u32 = 0x08000000;
+        cmd.creation_flags(CREATE_NO_WINDOW);
+    }
+
+    cmd.spawn().map_err(|e| {
         anyhow::anyhow!("No se pudo abrir Windows Terminal: {}. ¿Está instalado?", e)
     })?;
     Ok(())
