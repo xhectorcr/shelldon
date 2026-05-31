@@ -43,3 +43,5 @@ async function mockInvoke(cmd, args = {}) {
 const appWindow = isTauri
   ? window.__TAURI__.window.appWindow
   : { minimize: () => {}, toggleMaximize: () => {}, close: () => {} };
+
+window.appWindow = appWindow;
