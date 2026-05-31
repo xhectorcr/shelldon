@@ -13,7 +13,12 @@ pub fn get_project_by_name(name: String) -> Result<Option<Project>, String> {
 }
 
 #[command]
-pub fn save_project(project: Project) -> Result<(), String> {
+pub fn save_project(project: Project, old_name: Option<String>) -> Result<(), String> {
+    if let Some(old) = old_name {
+        if old != project.name {
+            let _ = config::delete_project(&old);
+        }
+    }
     config::save_project(&project).map_err(|e| e.to_string())
 }
 

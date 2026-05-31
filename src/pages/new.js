@@ -87,7 +87,7 @@ export async function saveProject(e) {
     extras
   };
   try {
-    await invoke('save_project', { project });
+    await invoke('save_project', { project, oldName: state.editing });
     toast('✅', `Proyecto "${name}" guardado`);
     state.editing = null;
     navigate('projects');
