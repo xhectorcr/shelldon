@@ -1,7 +1,7 @@
 import { state } from '../state.js';
 import { toast } from '../components/toast.js';
 import { esc } from '../utils.js';
-import { editProject } from './new.js';
+import { editProject, duplicateProject } from './new.js';
 import { openLaunchModal } from '../components/modal.js';
 
 export async function loadProjects() {
@@ -38,6 +38,7 @@ function buildCard(p) {
     <div class="card-header">
       <div class="card-icon" style="color:${color};background:${color}11">⚡</div>
       <div class="card-actions">
+        <button class="icon-btn" onclick="event.stopPropagation();duplicateProject('${esc(p.name)}')" title="Duplicar">📋</button>
         <button class="icon-btn" onclick="event.stopPropagation();editProject('${esc(p.name)}')" title="Editar">✏️</button>
         <button class="icon-btn danger" onclick="event.stopPropagation();deleteProject('${esc(p.name)}')" title="Eliminar">🗑️</button>
       </div>

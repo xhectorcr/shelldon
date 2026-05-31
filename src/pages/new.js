@@ -37,6 +37,28 @@ export async function editProject(name) {
   });
 }
 
+export async function duplicateProject(name) {
+  state.editing = null;
+  navigate('new');
+  const p = await invoke('get_project_by_name', { name });
+  if (!p) { toast('❌', 'Proyecto no encontrado'); return; }
+  document.getElementById('form-title').textContent = 'Duplicar: ' + p.name;
+  document.getElementById('field-name').value = p.name + ' (Copia)';
+  document.getElementById('field-description').value = p.description || '';
+  document.getElementById('field-color').value = p.color || '#7c3aed';
+  document.getElementById('color-hex').textContent = p.color || '#7c3aed';
+  document.getElementById('field-terminal').value = p.terminal || 'windows-terminal';
+  setFormLayout(p.layout || 'cols-2');
+  state.panes = (p.panes || []).map(x => ({...x}));
+  renderPanes();
+  document.querySelectorAll('.extra-cb').forEach(cb => { cb.checked = false; });
+  (p.extras || []).forEach(ex => {
+    const cb = document.querySelector(`.extra-cb[value="${ex}"]`);
+    if (cb) cb.checked = true;
+    if (ex.startsWith('browser:')) document.getElementById('field-browser-url').value = ex.replace('browser:', '');
+  });
+}
+
 export async function saveProject(e) {
   e.preventDefault();
   const name = document.getElementById('field-name').value.trim();
@@ -129,6 +151,7 @@ export function updatePane(i, field, val) {
 }
 
 window.editProject = editProject;
+window.duplicateProject = duplicateProject;
 window.saveProject = saveProject;
 window.addPane = addPane;
 window.removePane = removePane;
