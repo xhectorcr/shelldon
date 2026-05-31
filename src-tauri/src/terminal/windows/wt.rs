@@ -96,7 +96,7 @@ pub fn launch_wt(project: &Project) -> Result<()> {
         // Layout lineal (columnas por defecto)
         for (i, pane) in project.panes.iter().enumerate() {
             let split_dir = match project.layout.as_str() {
-                "cols-2" | "cols-3" => "-V",
+                "cols-2" => "-V",
                 _ => "-H",
             };
             args.extend(wt_pane_args(pane, i > 0, split_dir, None));

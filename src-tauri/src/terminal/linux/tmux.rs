@@ -58,8 +58,8 @@ pub fn launch_tmux(project: &Project) -> Result<()> {
                     ("-v", format!("{}:0", session))
                 }
             }
-            "cols-2" | "cols-3" => ("-h", format!("{}:0", session)),
-            "rows-2" | "rows-3" => ("-v", format!("{}:0", session)),
+            "cols-2" => ("-h", format!("{}:0", session)),
+            "rows-2" => ("-v", format!("{}:0", session)),
             "focus-right" => {
                 if i == 1 {
                     ("-h", format!("{}:0", session))

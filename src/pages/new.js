@@ -49,13 +49,18 @@ export async function saveProject(e) {
   document.querySelectorAll('.extra-cb:checked').forEach(cb => extras.push(cb.value));
   const burl = document.getElementById('field-browser-url').value.trim();
   if (burl) extras.push('browser:' + burl);
+  let finalLayout = state.formLayout;
+  if (state.panes.length > 2) {
+    finalLayout = 'grid-2x2';
+  }
+
   const project = {
     name,
     description: document.getElementById('field-description').value.trim(),
     icon: '⚡',
     color: document.getElementById('field-color').value,
     terminal: document.getElementById('field-terminal').value,
-    layout: state.formLayout,
+    layout: finalLayout,
     panes: state.panes.map(p => ({...p})),
     extras
   };
