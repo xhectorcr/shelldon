@@ -1,91 +1,127 @@
-# ⚡ ShellDon — Developer Workspace Launcher
+<div align="center">
+  <img src="./docs/images/shelldon.png" width="144" height="144" alt="Shelldon" />
+  <h1>ShellDon ⚡</h1>
 
-> Launch your entire dev environment in one click (or one command).
+  <p><strong>Workspaces</strong></p>
 
-ShellDon is a lightweight desktop launcher that automatically opens your terminal, splits panes, navigates to directories, and runs commands — all from a single JSON config.
+  <p>
+    <img src="https://img.shields.io/badge/version-v1.0.0-blue" alt="version" />
+    <img src="https://img.shields.io/badge/license-MIT-green" alt="license" />
+    <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey" alt="platform" />
+  </p>
+</div>
 
-## Features
+---
 
-- 🚀 **Instant launch** — One click or `shelldon up <project>`
-- 🪟 **Split panes** — Windows Terminal / tmux / iTerm2 support
-- 🎨 **Beautiful GUI** — Dark, minimal, fast Tauri + Tailwind UI
-- 💻 **CLI-first** — Full command-line interface
-- 📁 **JSON config** — Human-readable, git-friendly project configs
-- 🔌 **Extras** — Auto-open VSCode, Docker, browser URLs
+ShellDon es una aplicación de escritorio y herramienta CLI desarrollada con Rust, Tauri y JavaScript cuyo objetivo es simplificar la preparación de espacios de trabajo para desarrolladores.
 
-## Quick Start
+Permite definir proyectos mediante configuraciones reutilizables para centralizar directorios, comandos y futuras sesiones de terminal en un único lugar.
 
-### GUI
+La visión del proyecto es reducir el tiempo dedicado a tareas repetitivas y facilitar la puesta en marcha de entornos de desarrollo complejos mediante una experiencia simple, rápida y multiplataforma.
+
+---
+
+## Capturas
+
+### Interfaz Principal
+
+<p align="center">
+  <img src="./docs/images/ventana-principal-de-shelldon.png" alt="Ventana principal de ShellDon" width="900">
+</p>
+
+### Crear Proyecto
+
+<p align="center">
+  <img src="./docs/images/crear-proyecto.png" alt="Crear Proyecto" width="900">
+</p>
+
+---
+
+## Características
+
+### Actualmente disponibles
+
+- Interfaz gráfica de escritorio mediante Tauri.
+- Sistema de configuración basado en JSON.
+- Gestión de proyectos.
+- Arquitectura modular en Rust.
+- CLI integrada para administración de configuraciones.
+- Compatibilidad inicial con Windows, Linux y macOS.
+
+### En desarrollo
+
+- Apertura automática de terminales.
+- Ejecución de múltiples comandos por proyecto.
+- Gestión de paneles divididos.
+- Integración avanzada con terminales nativas.
+- Validación de configuraciones.
+
+---
+
+## Tecnologías
+
+### Backend
+
+- Rust
+- Tauri
+
+### Frontend
+
+- HTML
+- CSS
+- JavaScript
+
+---
+
+## Instalación
+
+### Requisitos
+
+- Rust (estable)
+- Node.js 20+
+- npm
+- Tauri CLI
+
+### Clonar el repositorio
+
+```bash
+git clone https://github.com/xhectorcr/shelldon.git
+cd shelldon
+```
+
+### Instalar dependencias
+
 ```bash
 npm install
-npm run dev       # Tauri dev mode
 ```
 
-### CLI
-```bash
-shelldon up erp                    # Launch project "ERP"
-shelldon list                      # List all projects
-shelldon add ./my-project.json     # Import a project config
-shelldon remove erp                # Delete a project
-shelldon show erp                  # Show project details
-```
-
-## Project Config (JSON)
-
-```json
-{
-  "name": "ERP",
-  "description": "Laravel + Vue full-stack",
-  "terminal": "windows-terminal",
-  "icon": "🏢",
-  "color": "#7c3aed",
-  "panes": [
-    { "name": "Frontend", "path": "./frontend", "command": "npm run dev" },
-    { "name": "Backend",  "path": "./backend",  "command": "php artisan serve" }
-  ],
-  "extras": ["vscode", "browser:http://localhost:5173"]
-}
-```
-
-## Supported Terminals
-
-| Terminal | Platform | Split Panes |
-|---|---|---|
-| Windows Terminal (`wt.exe`) | Windows | ✅ Native |
-| PowerShell | Windows | Separate windows |
-| CMD | Windows | Separate windows |
-| tmux | Linux/macOS | ✅ Native |
-| iTerm2 | macOS | ✅ AppleScript |
-| Terminator/Tilix | Linux | Separate windows |
-
-## Architecture
-
-```
-shelldon/
-├── src/                  # Frontend (HTML + Tailwind + Vanilla JS)
-│   ├── index.html
-│   ├── main.js           # App logic
-│   └── api.js            # Tauri IPC bridge (+ browser mock)
-└── src-tauri/            # Rust backend
-    ├── main.rs           # Entry point (CLI or GUI)
-    └── src/
-        ├── config.rs     # Project JSON persistence
-        ├── terminal.rs   # Terminal adapters
-        ├── core.rs       # Orchestration
-        ├── commands.rs   # Tauri IPC commands
-        └── cli.rs        # CLI (clap)
-```
-
-## Data Storage
-
-Projects are saved as JSON files in:
-- **Windows:** `%APPDATA%\shelldon\projects\`
-- **Linux:** `~/.local/share/shelldon/projects/`
-- **macOS:** `~/Library/Application Support/shelldon/projects/`
-
-## Build
+### Ejecutar en desarrollo
 
 ```bash
-npm install
-npm run build     # Tauri production build
+npm run tauri dev
 ```
+
+### Generar compilación
+
+```bash
+npm run tauri build
+```
+
+---
+
+## Uso
+
+### Interfaz gráfica
+
+1. Inicia ShellDon.
+2. Crea o selecciona un proyecto.
+3. Configura directorios y comandos.
+4. Guarda la configuración.
+
+---
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Puedes editar y distribuir esta plantilla como desees.
+
+Consulta el archivo [`LICENSE`](./LICENSE.md) para más información.
